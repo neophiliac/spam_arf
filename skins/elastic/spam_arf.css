@@ -1,0 +1,19 @@
+/* Style the button in the toolbar */
+.toolbar a.button.report-spam::before {
+    content: "";
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-image: url('');
+    background-size: contain;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+    margin-right: 4px;
+}
+
+/* Optional: Add a hover effect */
+.toolbar a.button.report-spam:hover {
+    background-color: #fce4e4;
+    border-color: #cc0000;
+    color: #cc0000;
+}

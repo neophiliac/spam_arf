@@ -1,0 +1,32 @@
+{
+    "name": "roundcube/rcsample",
+    "license": "BSD-3-Clause",
+    "description": "This is an example plugin to demo how the integration works",
+    "type": "roundcube-plugin",
+    "authors": [
+        {
+            "name": "Till Klampaeckel",
+            "email": "till@php.net"
+        },
+        {
+            "name": "Thomas Bruederli",
+            "email": "thomas@roundcube.net"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "http://plugins.roundcube.net"
+        }
+    ],
+    "require": {
+        "roundcube/plugin-installer": ">=0.1.2"
+    },
+    "extra": {
+        "roundcube": {
+            "min-version": "0.9.0",
+            "post-install-script": "echo 'POST-INSTALL SCRIPT'",
+            "post-update-script": "echo 'POST-UPDATE SCRIPT'"
+        }
+    }
+}
