@@ -1,0 +1,13 @@
+/* Style the button in the toolbar */
+a.button.report-spam {
+    background-image: url('../icons/arf.png');
+    background-repeat: no-repeat;
+    background-position: center left;
+    background-size: 16px 16px;
+    padding-left: 20px;
+}
+
+/* Optional: Add a hover effect */
+a.button.report-spam:hover {
+    color: #cc0000;
+}

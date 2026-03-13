@@ -1,22 +1,22 @@
 {
-    "name": "roundcube/rcsample",
-    "license": "BSD-3-Clause",
-    "description": "This is an example plugin to demo how the integration works",
+    "name": "merlot/spam_arf",
+    "license": "MIT",
+    "description": "Roundcube plugin to report spam in ARF (Abuse Reporting Format)",
     "type": "roundcube-plugin",
     "authors": [
         {
-            "name": "Till Klampaeckel",
-            "email": "till@php.net"
-        },
-        {
-            "name": "Thomas Bruederli",
-            "email": "thomas@roundcube.net"
+            "name": "Kurt Sussman",
+            "email": "kls@merlot.com"
         }
     ],
     "repositories": [
         {
             "type": "composer",
-            "url": "http://plugins.roundcube.net"
+            "url": "https://plugins.roundcube.net"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/neophiliac/spam_arf"
         }
     ],
     "require": {
@@ -24,9 +24,7 @@
     },
     "extra": {
         "roundcube": {
-            "min-version": "0.9.0",
-            "post-install-script": "echo 'POST-INSTALL SCRIPT'",
-            "post-update-script": "echo 'POST-UPDATE SCRIPT'"
+            "min-version": "1.5"
         }
     }
 }
