@@ -1,6 +1,43 @@
 # rc_send_arf
 Send the current email in ARF format
 
+## Installation
+
+### Requirements
+
+- Roundcube 1.5 or later
+- PHP mail delivery configured and working in Roundcube
+
+### Via Composer (recommended)
+
+From your Roundcube root directory:
+
+```bash
+composer require merlot/spam_arf
+```
+
+This will install the plugin into `plugins/spam_arf/` and register it automatically.
+
+### Manual installation
+
+1. Copy (or clone) this repository into your Roundcube plugins directory:
+
+   ```bash
+   git clone https://github.com/neophiliac/spam_arf plugins/spam_arf
+   ```
+
+2. Open `config/config.inc.php` (or `config/main.inc.php` on older installs) and add `spam_arf` to the plugins array:
+
+   ```php
+   $config['plugins'] = ['spam_arf'];
+   ```
+
+### Skin support
+
+The plugin includes stylesheets for the `elastic` and `classic` Roundcube skins. No additional steps are needed for these skins. If you use a third-party skin, copy one of the existing skin directories as a starting point and place it at `plugins/spam_arf/skins/<skin-name>/`.
+
+---
+
 ## Testing
 
 ### Test Plan
@@ -10,14 +47,15 @@ Send the current email in ARF format
 - Open the mail view and confirm the "Report Spam" button appears in the toolbar with the icon visible
 - Repeat with both the `elastic` and `classic` skins active
 
-**2. Confirmation dialog**
+**2. Report dialog**
 - Select a message and click "Report Spam"
-- Confirm that a dialog appears with the expected prompt text
+- Confirm that a dialog appears with the confirmation text and a "Report to address" input field
 - Click Cancel and verify no report is sent and the UI returns to its normal state
+- Reopen the dialog, leave the address blank, click Send Report, and confirm the dialog stays open without submitting
+- Enter an invalid address (e.g. no `@`) and confirm the dialog stays open
 
 **3. Successful report submission**
-- Configure `$report_to` in `spam_arf.php` to a mailbox you control
-- Select a message, click "Report Spam", and confirm the dialog
+- Select a message, click "Report Spam", and enter the abuse contact address for the sending host (e.g. `abuse@sendinghost.example`)
 - Verify the success notification appears in the UI
 - Verify the report arrives at the target address as a `multipart/report` message with the correct MIME parts:
   - A `text/plain` human-readable part
@@ -44,7 +82,7 @@ Send the current email in ARF format
 
 **Special characters in headers** — If the original message contains non-ASCII or improperly encoded headers, verify they are passed through intact into the `message/rfc822` part without corruption.
 
-**SMTP authentication / relay restrictions** — `deliver_message()` uses Roundcube's configured outbound transport. If the abuse address is on an external domain and the SMTP relay blocks outbound mail to non-local recipients, delivery will silently fail. Ensure the configured transport can reach the target address.
+**SMTP authentication / relay restrictions** — `deliver_message()` uses Roundcube's configured outbound transport. Because reports are always sent to external abuse contacts, the SMTP relay must permit outbound delivery to arbitrary external domains. If it does not, delivery will fail silently with no indication of the real cause.
 
 **Concurrent reports** — Clicking "Report Spam" multiple times in quick succession (e.g. via keyboard) before the confirmation dialog closes could queue duplicate reports. Verify the busy-lock set by `rcmail.set_busy()` prevents this.
 

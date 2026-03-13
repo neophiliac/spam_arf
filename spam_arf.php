@@ -38,7 +38,13 @@ class spam_arf extends rcube_plugin {
 
         // 2. Build ARF MIME structure
         $boundary = "report_" . md5(microtime());
-        $report_to = "abuse@yourdomain.com"; // CHANGE THIS
+        $report_to = rcube_utils::get_input_value('_report_to', rcube_utils::INPUT_POST);
+
+        if (empty($report_to) || !filter_var($report_to, FILTER_VALIDATE_EMAIL)) {
+            $rcmail->output->show_message('spam_arf.reporterror', 'error');
+            $rcmail->output->send();
+            return;
+        }
 
         $arf_body = "This is an automated ARF report.\r\n\r\n"
                   . "--$boundary\r\n"

@@ -5,3 +5,6 @@ $labels['reportconfirm'] = 'Are you sure you want to send an ARF spam report for
 $labels['reportsuccess'] = 'Spam report sent successfully.';
 $labels['reporterror'] = 'Failed to send spam report.';
 $labels['reporting'] = 'Reporting...';
+$labels['reportaddress'] = 'Report to address:';
+$labels['send'] = 'Send Report';
+$labels['cancel'] = 'Cancel';
